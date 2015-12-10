@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WordGame</string>
+    <string name="start_btn">New Game</string>
+    <string name="user_name">New Player</string>
+</resources>
+
+
