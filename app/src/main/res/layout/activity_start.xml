@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/start_btn"
-        android:id="@+id/button"
+        android:id="@+id/new_game"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="58dp" />
@@ -22,8 +22,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/user_name"
-        android:id="@+id/button2"
-        android:layout_above="@+id/button"
+        android:id="@+id/new_player"
+        android:layout_above="@+id/new_game"
+        android:layout_marginBottom="50dp"
+        android:onClick="onClickAddPlayer"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chose_player"
+        android:id="@+id/chose_player"
+        android:layout_alignTop="@+id/new_player"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/welcome"
+        android:id="@+id/welcome_message"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginTop="60dp" />
 </RelativeLayout>

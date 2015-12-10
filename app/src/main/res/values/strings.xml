@@ -2,6 +2,8 @@
     <string name="app_name">WordGame</string>
     <string name="start_btn">New Game</string>
     <string name="user_name">New Player</string>
+    <string name="chose_player">Chose Player</string>
+    <string name="welcome">Welcome! Please, chose the player.</string>
 </resources>
 
 
