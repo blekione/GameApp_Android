@@ -36,6 +36,7 @@ public class StartActivity extends AppCompatActivity {
 
     public void onClickChosePlayer(View view) {
         Intent intent = new Intent(this, ChosePlayerActivity.class);
+        startActivity(intent);
     }
 
     public static Player getPlayer(int id) {
