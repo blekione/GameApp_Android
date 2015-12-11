@@ -7,12 +7,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.blekione.wordgame.AddNewPlayer">
+    tools:context=".AddNewPlayerActivity">
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/playerName"
+        android:id="@+id/player_name"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="127dp" />
+        android:layout_marginTop="127dp"
+        android:inputType="text"
+        android:singleLine="true"
+        android:imeOptions="actionDone"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_player"
+        android:id="@+id/button"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:onClick="onClickAddNewPlayer"/>
 </RelativeLayout>

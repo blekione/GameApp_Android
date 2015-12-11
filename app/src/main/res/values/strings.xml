@@ -3,7 +3,8 @@
     <string name="start_btn">New Game</string>
     <string name="user_name">New Player</string>
     <string name="chose_player">Chose Player</string>
-    <string name="welcome">Welcome! Please, chose the player.</string>
+    <string name="welcome">Welcome Guest! Please, chose the player from list or  create new player.</string>
+    <string name="add_player">Add Player</string>
 </resources>
 
 

@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddNewPlayer"></activity>
+        <activity android:name=".AddNewPlayerActivity" />
+        <activity android:name=".ChosePlayerActivity"></activity>
     </application>
 
 </manifest>
