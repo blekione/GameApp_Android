@@ -15,6 +15,7 @@ import java.util.List;
 public class StartActivity extends AppCompatActivity {
 
     private static List<Player> players = new ArrayList<>();
+    private static Player lastPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class StartActivity extends AppCompatActivity {
         if (StartActivity.players.isEmpty()){
             welcomeMsg.setText("Welcome Guest!");
         } else {
-            welcomeMsg.setText("Welcome " + getPlayer(0).getNick() + "!");
+            welcomeMsg.setText("Welcome " + lastPlayer.getNick() + "!");
         }
     }
 
@@ -60,4 +61,11 @@ public class StartActivity extends AppCompatActivity {
         StartActivity.players.add(new Player(nick));
     }
 
+    public Player getLastPlayer() {
+        return lastPlayer;
+    }
+
+    public static void setLastPlayer(Player lastPlayer) {
+        StartActivity.lastPlayer = lastPlayer;
+    }
 }

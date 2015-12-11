@@ -25,10 +25,11 @@ public class ChosePlayerActivity extends AppCompatActivity {
         for (Player player : StartActivity.getPlayers()) {
             nicksAndScore.add(player.getNick() + " score: " + player.getScore());
         }
-
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, nicksAndScore
         );
         listView.setAdapter(arrayAdapter);
     }
+
+
 }

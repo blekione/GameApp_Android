@@ -9,6 +9,8 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.blekione.wordgame.com.blekione.wordgame.domain.Player;
+
 public class AddNewPlayerActivity extends AppCompatActivity {
 
     @Override
@@ -21,8 +23,9 @@ public class AddNewPlayerActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handle = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE){
-                    openMainActivity();
                     StartActivity.setPlayer(playerNameText.getText().toString());
+                    StartActivity.setLastPlayer(StartActivity.getPlayer(Player.getIdCounter() - 1));
+                    openMainActivity();
                 }
                     return false;
             }
@@ -32,6 +35,7 @@ public class AddNewPlayerActivity extends AppCompatActivity {
     public void onClickAddNewPlayer(View view) {
         EditText playerNameText = (EditText) findViewById(R.id.player_name);
         StartActivity.setPlayer(playerNameText.getText().toString());
+        StartActivity.setLastPlayer(StartActivity.getPlayer(Player.getIdCounter() - 1));
         openMainActivity();
     }
 
