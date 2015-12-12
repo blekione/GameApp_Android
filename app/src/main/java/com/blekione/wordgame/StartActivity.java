@@ -8,6 +8,10 @@ import android.widget.TextView;
 
 import com.blekione.wordgame.com.blekione.wordgame.domain.Player;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,8 +23,21 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // reading resourced for dictionary from text file
+        InputStream fstream = getResources().openRawResource(R.raw.enable1);
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        List<String> dictionary = new ArrayList<>();
+        String line;
+        try {
+            while((line = br.readLine()) != null) {
+                dictionary.add(line);
+            }
+        } catch (IOException e) {
+            System.out.print("problem with reading resource file");
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        // setting up welcome message
         TextView welcomeMsg = (TextView) findViewById(R.id.welcome_message);
         if (StartActivity.players.isEmpty()){
             welcomeMsg.setText("Welcome Guest!");
