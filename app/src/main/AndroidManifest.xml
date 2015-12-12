@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddNewPlayerActivity" />
-        <activity android:name=".ChosePlayerActivity"></activity>
+        <activity android:name=".ChosePlayerActivity" />
+        <activity android:name=".DificultyLevelActivity"></activity>
     </application>
 
 </manifest>

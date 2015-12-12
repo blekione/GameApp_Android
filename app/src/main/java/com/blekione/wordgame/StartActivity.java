@@ -57,6 +57,15 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickStartGame(View view) {
+        if (lastPlayer == null) {
+            // add message promt user to chose player
+        } else {
+            Intent intent = new Intent(this, DificultyLevelActivity.class);
+            startActivity(intent);
+        }
+    }
+
     public static Player getPlayer(int id) {
         Iterator<Player> iterator = StartActivity.players.iterator();
         boolean playerFound = false;
