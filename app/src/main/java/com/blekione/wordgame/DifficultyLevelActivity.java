@@ -13,6 +13,7 @@ import java.util.Random;
 
 public class DifficultyLevelActivity extends AppCompatActivity {
 
+    private List<String> gameWords = new ArrayList<>();
     private int difficultyLvl = 1;
     private Spinner spinner;
 
@@ -30,7 +31,7 @@ public class DifficultyLevelActivity extends AppCompatActivity {
         difficultyLvl = (int) spinner.getSelectedItem();
         TextView test = (TextView) findViewById(R.id.test);
         // create sublist of words depends of set difficulty
-        List<String> gameWords = new ArrayList<>();
+
         int wordLength = difficultyLvl * 2 + 2;
         int wordsNumber = difficultyLvl * 2 + 3;
         Random random = new Random();
@@ -58,5 +59,9 @@ public class DifficultyLevelActivity extends AppCompatActivity {
 
     public void setDifficultyLvl(int difficultyLvl) {
         this.difficultyLvl = difficultyLvl;
+    }
+
+    public List<String> getGameWords() {
+       return gameWords;
     }
 }
