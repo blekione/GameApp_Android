@@ -5,8 +5,9 @@
     <string name="chose_player">Chose Player</string>
     <string name="welcome">Welcome Guest! Please, chose the player from list or  create new player.</string>
     <string name="add_player">Add Player</string>
-    <string name="game_difficult_msg">Chose DifficultyLevel</string>
+    <string name="game_difficult_msg">Chose Level Difficulty</string>
     <string name="game_difficult_btn">Start Game</string>
+    <string name="select_player_msg">Please select existing or add new player.</string>
 </resources>
 
 

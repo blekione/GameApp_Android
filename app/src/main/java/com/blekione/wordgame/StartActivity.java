@@ -20,13 +20,14 @@ public class StartActivity extends AppCompatActivity {
 
     private static List<Player> players = new ArrayList<>();
     private static Player lastPlayer;
+    private static List<String> dictionary = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // reading resourced for dictionary from text file
         InputStream fstream = getResources().openRawResource(R.raw.enable1);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-        List<String> dictionary = new ArrayList<>();
+
         String line;
         try {
             while((line = br.readLine()) != null) {
@@ -59,9 +60,11 @@ public class StartActivity extends AppCompatActivity {
 
     public void onClickStartGame(View view) {
         if (lastPlayer == null) {
-            // add message promt user to chose player
+            // add message prompt user to chose player
+            TextView msg = (TextView) findViewById(R.id.select_player_msg);
+            msg.setVisibility(View.VISIBLE);
         } else {
-            Intent intent = new Intent(this, DificultyLevelActivity.class);
+            Intent intent = new Intent(this, DifficultyLevelActivity.class);
             startActivity(intent);
         }
     }
@@ -94,4 +97,13 @@ public class StartActivity extends AppCompatActivity {
     public static void setLastPlayer(Player lastPlayer) {
         StartActivity.lastPlayer = lastPlayer;
     }
+
+    public static List<String> getDictionary() {
+        return dictionary;
+    }
+
+    public static void setDictionary(List<String> dictionary) {
+        StartActivity.dictionary = dictionary;
+    }
+
 }

@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.blekione.wordgame.DificultyLevelActivity">
+    tools:context=".DifficultyLevelActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,5 +34,16 @@
         android:id="@+id/game_difficult_start_btn"
         android:layout_below="@+id/game_difficult_lvl"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp" />
+        android:layout_marginTop="47dp"
+        android:onClick="onClickDifficultyStartGame"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="test"
+        android:id="@+id/test"
+        android:layout_below="@+id/game_difficult_start_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 </RelativeLayout>

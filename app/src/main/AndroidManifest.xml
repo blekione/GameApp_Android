@@ -17,7 +17,7 @@
         </activity>
         <activity android:name=".AddNewPlayerActivity" />
         <activity android:name=".ChosePlayerActivity" />
-        <activity android:name=".DificultyLevelActivity"></activity>
+        <activity android:name=".DifficultyLevelActivity"></activity>
     </application>
 
 </manifest>
