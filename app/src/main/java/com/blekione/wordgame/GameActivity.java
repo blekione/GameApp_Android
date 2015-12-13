@@ -48,16 +48,18 @@ public class GameActivity extends Activity {
         for (int i = 0; i < gameWords.size(); i++) {
             final int index = i; // to be used in OnClickListener anonymous classes
             // display words from list of gameWords
-            TextView textView = new TextView(this);
-            textView.setText(gameWords.get(i));
-            textView.setId(i);
+            TextView gameWord = new TextView(this);
+            gameWord.setTextSize(20);
+            gameWord.setText(gameWords.get(i));
+            gameWord.setId(i);
             LayoutParams paramTextView = new LayoutParams();
             paramTextView.columnSpec = GridLayout.spec(0);
             paramTextView.rowSpec = GridLayout.spec(i);
-            gridLayout.addView(textView, paramTextView);
+            gridLayout.addView(gameWord, paramTextView);
             // display buttons to check assigned word
             Button btnCheck = new Button(this);
             btnCheck.setText("Check");
+            btnCheck.setHeight(20);
             LayoutParams paramBtnCheck = new LayoutParams();
             paramBtnCheck.columnSpec = GridLayout.spec(1);
             paramBtnCheck.rowSpec = GridLayout.spec(i);

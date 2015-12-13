@@ -32,7 +32,6 @@ public class DifficultyLevelActivity extends Activity {
     public void onClickDifficultyStartGame(View view) {
         difficultyLvl = (int) spinner.getSelectedItem();
         gameWords = new ArrayList<>();
-        TextView test = (TextView) findViewById(R.id.test);
         // create sublist of words depends of set difficulty
 
         int wordLength = difficultyLvl * 2 + 2;
