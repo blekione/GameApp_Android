@@ -1,5 +1,6 @@
 package com.blekione.wordgame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +14,7 @@ import com.blekione.wordgame.com.blekione.wordgame.domain.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChosePlayerActivity extends AppCompatActivity {
+public class ChosePlayerActivity extends Activity {
 
     private ListView listView;
 

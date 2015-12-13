@@ -1,5 +1,6 @@
 package com.blekione.wordgame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 import com.blekione.wordgame.com.blekione.wordgame.domain.Player;
 
-public class AddNewPlayerActivity extends AppCompatActivity {
+public class AddNewPlayerActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

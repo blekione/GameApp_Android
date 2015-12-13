@@ -1,5 +1,6 @@
 package com.blekione.wordgame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DifficultyLevelActivity extends AppCompatActivity {
+public class DifficultyLevelActivity extends Activity {
 
     private static List<String> gameWords;
     private static int difficultyLvl = 1;

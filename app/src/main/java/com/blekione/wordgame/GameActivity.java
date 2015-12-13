@@ -20,7 +20,7 @@ import android.view.View.OnClickListener;
 import java.util.List;
 import java.util.Random;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends Activity {
 
     private static int attempts;
     private static int attemptsCounter;
@@ -66,13 +66,17 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if (gameWords.get(index).equals(password)) {
+                        // if guessed word match password is a win
+                        gameOver = true;
                         showPopupWindow(GameActivity.this, "You guess correctly");
                     } else {
                         if (attempts == ++attemptsCounter) {
+                            // if guessed word do not match and number of attempts finished is a loss
                             gameOver = true;
                             showPopupWindow(GameActivity.this,
                                     "Attempts: " + attemptsCounter + "/" + attempts +".\n Game over!");
                         } else {
+                            // if geussed word do not match and attempts left let chose different word
                             String msg = "Attempts: " + attemptsCounter + "/" + attempts + "\n";
                             msg += numberOfCorrectLetters(gameWords.get(index), password);
                             showPopupWindow(GameActivity.this, msg);

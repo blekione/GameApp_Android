@@ -1,5 +1,6 @@
 package com.blekione.wordgame;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends Activity {
 
     private static List<Player> players = new ArrayList<>();
     private static Player lastPlayer;
