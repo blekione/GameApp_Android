@@ -2,6 +2,7 @@ package com.blekione.wordgame;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,8 +22,13 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
+    private static int attempts;
+    private static int attemptsCounter;
+    boolean gameOver = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        attemptsCounter = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         GridLayout gridLayout = (GridLayout) findViewById(R.id.buttons_layout);
@@ -35,6 +41,8 @@ public class GameActivity extends AppCompatActivity {
         Random random = new Random();
         final String password = gameWords.get(random.nextInt(gameWords.size()));
 
+        // calculate how many attepts based on difficulty lvl
+        attempts = difficultyLvl * 3 -1;
 
         // create layout dynamical based on difficulty level
         for (int i = 0; i < gameWords.size(); i++) {
@@ -60,8 +68,15 @@ public class GameActivity extends AppCompatActivity {
                     if (gameWords.get(index).equals(password)) {
                         showPopupWindow(GameActivity.this, "You guess correctly");
                     } else {
-                        String msg = numberOfCorrectLetters(gameWords.get(index), password);
-                        showPopupWindow(GameActivity.this, msg);
+                        if (attempts == ++attemptsCounter) {
+                            gameOver = true;
+                            showPopupWindow(GameActivity.this,
+                                    "Attempts: " + attemptsCounter + "/" + attempts +".\n Game over!");
+                        } else {
+                            String msg = "Attempts: " + attemptsCounter + "/" + attempts + "\n";
+                            msg += numberOfCorrectLetters(gameWords.get(index), password);
+                            showPopupWindow(GameActivity.this, msg);
+                        }
                     }
                 }
             });
@@ -102,6 +117,8 @@ public class GameActivity extends AppCompatActivity {
         popup.setWidth(popupWidth);
         popup.setHeight(popupHeight);
         popup.setFocusable(true);
+        popup.setOutsideTouchable(false);
+        popup.setBackgroundDrawable(null);
 
 
         // display the popup at the center of the screen
@@ -118,6 +135,10 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 popup.dismiss(); // close popup window when close button pressed
+                if (gameOver) {
+                    Intent intent = new Intent(GameActivity.this, DifficultyLevelActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
