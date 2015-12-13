@@ -1,5 +1,6 @@
 package com.blekione.wordgame;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,8 +14,8 @@ import java.util.Random;
 
 public class DifficultyLevelActivity extends AppCompatActivity {
 
-    private List<String> gameWords = new ArrayList<>();
-    private int difficultyLvl = 1;
+    private static List<String> gameWords;
+    private static int difficultyLvl = 1;
     private Spinner spinner;
 
     @Override
@@ -29,6 +30,7 @@ public class DifficultyLevelActivity extends AppCompatActivity {
 
     public void onClickDifficultyStartGame(View view) {
         difficultyLvl = (int) spinner.getSelectedItem();
+        gameWords = new ArrayList<>();
         TextView test = (TextView) findViewById(R.id.test);
         // create sublist of words depends of set difficulty
 
@@ -47,13 +49,12 @@ public class DifficultyLevelActivity extends AppCompatActivity {
 
             } while (word.length() != wordLength);
             gameWords.add(word);
-            testChar = testChar + word + " ";
         }
-        test.setText(testChar);
-
+        Intent intent  = new Intent(this, GameActivity.class);
+        startActivity(intent);
     }
 
-    public int getDifficultyLvl() {
+    public static int getDifficultyLvl() {
         return difficultyLvl;
     }
 
@@ -61,7 +62,7 @@ public class DifficultyLevelActivity extends AppCompatActivity {
         this.difficultyLvl = difficultyLvl;
     }
 
-    public List<String> getGameWords() {
+    public static List<String> getGameWords() {
        return gameWords;
     }
 }
