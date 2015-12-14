@@ -25,6 +25,7 @@ public class ChosePlayerActivity extends Activity {
         setContentView(R.layout.activity_chose_player);
         // populate ListView by entries from list of players
         listView = (ListView) findViewById(R.id.list_players);
+
         List<String> nicksAndScore = new ArrayList<String>();
         for (Player player : StartActivity.getPlayers()) {
             nicksAndScore.add(player.getNick() + " score: " + player.getScore());
@@ -40,7 +41,7 @@ public class ChosePlayerActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(ChosePlayerActivity.this, StartActivity.class);
-                StartActivity.setLastPlayer(StartActivity.getPlayer(position));
+                StartActivity.setLastPlayer(StartActivity.getPlayer(position + 1));
                 startActivity(intent);
             }
         };
