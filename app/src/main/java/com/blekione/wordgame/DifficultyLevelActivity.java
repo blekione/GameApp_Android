@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,16 @@ public class DifficultyLevelActivity extends Activity {
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, levels);
         spinner.setAdapter(adapter);
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast toast  = Toast.makeText(this, "Back to start screen", Toast.LENGTH_SHORT);
+        toast.show();
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+        return;
+    }
+
 
     public void onClickDifficultyStartGame(View view) {
         difficultyLvl = (int) spinner.getSelectedItem();

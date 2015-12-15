@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Random;
@@ -24,6 +25,7 @@ public class GameActivity extends Activity {
 
     private static int attempts;
     private static int attemptsCounter;
+    private static int score;
     boolean gameOver = false;
 
     @Override
@@ -42,7 +44,7 @@ public class GameActivity extends Activity {
         final String password = gameWords.get(random.nextInt(gameWords.size()));
 
         // calculate how many attepts based on difficulty lvl
-        attempts = difficultyLvl * 3 -1;
+        attempts = difficultyLvl * 3;
 
         // create layout dynamical based on difficulty level
         for (int i = 0; i < gameWords.size(); i++) {
@@ -57,6 +59,7 @@ public class GameActivity extends Activity {
             paramTextView.rowSpec = GridLayout.spec(i);
             gridLayout.addView(gameWord, paramTextView);
             // display buttons to check assigned word
+
             Button btnCheck = new Button(this);
             btnCheck.setText("Check");
             btnCheck.setHeight(20);
@@ -70,7 +73,12 @@ public class GameActivity extends Activity {
                     if (gameWords.get(index).equals(password)) {
                         // if guessed word match password is a win
                         gameOver = true;
-                        showPopupWindow(GameActivity.this, "You guess correctly");
+                        score  = attempts - attemptsCounter;
+                        showPopupWindow(GameActivity.this,
+                                "You guess correctly "
+                                        + StartActivity.getActvityRef().getLastPlayer().getNick()
+                                        + "\n Your score is: " + score);
+                        StartActivity.getActvityRef().updatePlayerScore(score);
                     } else {
                         if (attempts == ++attemptsCounter) {
                             // if guessed word do not match and number of attempts finished is a loss
@@ -88,7 +96,11 @@ public class GameActivity extends Activity {
             });
             // display buttons to cross the word
             Button btnCross = new Button(this);
+
+            btnCross.setId(100 + i);
             btnCross.setText("Cross Word");
+            boolean textCrossed = false;
+            btnCross.setWidth(280);
             LayoutParams paramBtnCross = new LayoutParams();
             paramBtnCross.columnSpec = GridLayout.spec(2);
             paramBtnCross.rowSpec = GridLayout.spec(i);
@@ -97,8 +109,20 @@ public class GameActivity extends Activity {
 
                 @Override
                 public void onClick(View view) {
+                    Button btn = (Button) findViewById(100 + index);
                     TextView textView = (TextView) findViewById(index);
-                    textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    if ((textView.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
+                        Toast toast  = Toast.makeText(GameActivity.this, "in if", Toast.LENGTH_SHORT);
+                        toast.show();
+                        btn.setText("Cross Word");
+                        textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+                    } else {
+                        Toast toast  = Toast.makeText(GameActivity.this, "in else", Toast.LENGTH_SHORT);
+                        toast.show();
+                        btn.setText("Unross Word");
+                        textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+
                 }
             });
         }

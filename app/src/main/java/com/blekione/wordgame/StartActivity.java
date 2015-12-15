@@ -34,6 +34,7 @@ public class StartActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        this.deleteDatabase("word_game");
         activityRef = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
@@ -50,38 +51,14 @@ public class StartActivity extends Activity {
         }
         players = new ArrayList<>();
 
-        // creating or opening database
-        try {
-            SQLiteOpenHelper playerDatabaseHelper = new PlayerDatabaseHelper(this);
-            db = playerDatabaseHelper.getReadableDatabase();
-            Cursor cursor = db.query("PLAYERS", new String[] {"_id", "NICK", "SCORE"}, null, null
-                    , null, null, null);
-            Toast toast  = Toast.makeText(this, "records " + cursor.getCount(), Toast.LENGTH_SHORT);
-            toast.show();
-            while(cursor.moveToNext()) {
-                Player defaultPlayer = new Player(cursor.getString(1));
-                defaultPlayer.setId(cursor.getInt(0));
-                defaultPlayer.setScore(cursor.getInt(2));
-                players.add(defaultPlayer);
-            }
-            cursor.close();
-            db.close();
-        } catch (SQLiteException e) {
-            Toast toast  = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
         // setting up welcome message
         TextView welcomeMsg = (TextView) findViewById(R.id.welcome_message);
-        Toast toast  = Toast.makeText(this, "player: " + lastPlayer, Toast.LENGTH_SHORT);
-        toast.show();
         if (lastPlayer == null ){
             welcomeMsg.setText("Welcome Guest!");
         } else {
             welcomeMsg.setText("Welcome " + lastPlayer.getNick() + "!");
         }
     }
-
 
     public void onClickAddPlayer(View view) {
         Intent intent = new Intent(this, AddNewPlayerActivity.class);
@@ -118,6 +95,24 @@ public class StartActivity extends Activity {
 
 
     public static List<Player> getPlayers() {
+        try {
+            SQLiteOpenHelper playerDatabaseHelper = new PlayerDatabaseHelper(activityRef);
+            db = playerDatabaseHelper.getReadableDatabase();
+            Cursor cursor = db.query("PLAYERS", new String[] {"_id", "NICK", "SCORE"}, null, null
+                    , null, null, null);
+            while(cursor.moveToNext()) {
+                Player defaultPlayer = new Player(cursor.getString(1));
+                defaultPlayer.setId(cursor.getInt(0));
+                defaultPlayer.setScore(cursor.getInt(2));
+                players.add(defaultPlayer);
+            }
+            cursor.close();
+            db.close();
+        } catch (SQLiteException e) {
+            Toast toast  = Toast.makeText(activityRef, "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
         return players;
     }
 
@@ -130,20 +125,27 @@ public class StartActivity extends Activity {
             db.insert("PLAYERS", null, values);
             db.close();
             StartActivity.players.add(new Player(nick));
-            Toast toast  = Toast.makeText(activityRef, "Added new player " + nick , Toast.LENGTH_SHORT);
-            toast.show();
         } catch (SQLiteException e) {
             Toast toast  = Toast.makeText(activityRef, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
-    public static void updatePlayerScore(Player player, int newScore) {
-        ContentValues playerValues = new ContentValues();
-        playerValues.put("SCORE", newScore);
-
-        db.update("PLAYERS", playerValues,"_id = ?",
-                new String[] { Integer.toString(player.getId()) });
+    public void updatePlayerScore(int score) {
+        int newScore = lastPlayer.getScore() + score;
+        try {
+            ContentValues playerValues = new ContentValues();
+            playerValues.put("SCORE", newScore);
+            SQLiteOpenHelper playerDatabaseHelper = new PlayerDatabaseHelper(this);
+            db = playerDatabaseHelper.getReadableDatabase();
+            db.update("PLAYERS", playerValues, "_id = ?",
+                    new String[]{Integer.toString(lastPlayer.getId())});
+            lastPlayer.setScore(newScore);
+            db.close();
+        } catch (SQLiteException e) {
+            Toast toast  = Toast.makeText(activityRef, "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
     }
 
