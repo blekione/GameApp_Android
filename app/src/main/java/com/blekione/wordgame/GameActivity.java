@@ -75,9 +75,7 @@ public class GameActivity extends Activity {
                         gameOver = true;
                         score  = attempts - attemptsCounter;
                         showPopupWindow(GameActivity.this,
-                                "You guess correctly "
-                                        + StartActivity.getActvityRef().getLastPlayer().getNick()
-                                        + "\n Your score is: " + score);
+                                "You guess correctly!\n" + score + " points added to your score!");
                         StartActivity.getActvityRef().updatePlayerScore(score);
                     } else {
                         if (attempts == ++attemptsCounter) {
@@ -112,13 +110,9 @@ public class GameActivity extends Activity {
                     Button btn = (Button) findViewById(100 + index);
                     TextView textView = (TextView) findViewById(index);
                     if ((textView.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
-                        Toast toast  = Toast.makeText(GameActivity.this, "in if", Toast.LENGTH_SHORT);
-                        toast.show();
                         btn.setText("Cross Word");
                         textView.setPaintFlags(textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
                     } else {
-                        Toast toast  = Toast.makeText(GameActivity.this, "in else", Toast.LENGTH_SHORT);
-                        toast.show();
                         btn.setText("Unross Word");
                         textView.setPaintFlags(textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     }
