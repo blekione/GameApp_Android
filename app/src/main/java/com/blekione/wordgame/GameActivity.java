@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 import java.util.List;
 import java.util.Random;
@@ -76,7 +74,7 @@ public class GameActivity extends Activity {
                         score  = attempts - attemptsCounter;
                         showPopupWindow(GameActivity.this,
                                 "You guess correctly!\n" + score + " points added to your score!");
-                        StartActivity.getActvityRef().updatePlayerScore(score);
+                        MainActivity.getActvityRef().updatePlayerScore(score);
                     } else {
                         if (attempts == ++attemptsCounter) {
                             // if guessed word do not match and number of attempts finished is a loss
@@ -92,9 +90,9 @@ public class GameActivity extends Activity {
                     }
                 }
             });
+
             // display buttons to cross the word
             Button btnCross = new Button(this);
-
             btnCross.setId(100 + i);
             btnCross.setText("Cross Word");
             boolean textCrossed = false;

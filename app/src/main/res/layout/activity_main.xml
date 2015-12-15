@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.blekione.wordgame.StartActivity">
+    tools:context=".MainActivity">
 
     <Button
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:id="@+id/chose_player"
         android:layout_alignTop="@+id/new_player"
         android:layout_alignParentEnd="true"
-        android:onClick="onClickChosePlayer" />
+        android:onClick="onClickChoosePlayer" />
 
     <TextView
         android:layout_width="wrap_content"

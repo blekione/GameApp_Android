@@ -2,12 +2,10 @@ package com.blekione.wordgame;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,15 +24,20 @@ public class DifficultyLevelActivity extends Activity {
         setContentView(R.layout.activity_dificulty_level);
         this.spinner =(Spinner) findViewById(R.id.game_difficult_lvl);
         Integer[] levels = new Integer[]{1,2,3,4,5};
+        // populate spinner with difficulty levels
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item, levels);
         spinner.setAdapter(adapter);
     }
 
+    /**
+     * when system back button is pressed it returns to start activity instead to previous displayed
+     * screen
+     */
     @Override
     public void onBackPressed() {
         Toast toast  = Toast.makeText(this, "Back to start screen", Toast.LENGTH_SHORT);
         toast.show();
-        Intent intent = new Intent(this, StartActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         return;
     }
@@ -42,9 +45,18 @@ public class DifficultyLevelActivity extends Activity {
 
     public void onClickDifficultyStartGame(View view) {
         difficultyLvl = (int) spinner.getSelectedItem();
-        gameWords = new ArrayList<>();
-        // create sublist of words depends of set difficulty
 
+        getWords();// create a sublist of words depends of set difficulty
+
+        Intent intent  = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * create a sublist of words based on game difficulty
+     */
+    private void getWords() {
+        gameWords = new ArrayList<>();
         int wordLength = difficultyLvl * 2 + 2;
         int wordsNumber = difficultyLvl * 2 + 3;
         Random random = new Random();
@@ -55,14 +67,12 @@ public class DifficultyLevelActivity extends Activity {
             // find random word of length wordLength in dictionary
             do {
                 // get random word from dictionary
-                word = StartActivity.getDictionary()
-                        .get(random.nextInt(StartActivity.getDictionary().size()));
+                word = MainActivity.getDictionary()
+                        .get(random.nextInt(MainActivity.getDictionary().size()));
 
             } while (word.length() != wordLength);
             gameWords.add(word);
         }
-        Intent intent  = new Intent(this, GameActivity.class);
-        startActivity(intent);
     }
 
     public static int getDifficultyLvl() {

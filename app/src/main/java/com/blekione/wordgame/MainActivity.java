@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,26 +18,45 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class StartActivity extends Activity {
+public class MainActivity extends Activity {
 
     private static List<Player> players;
     private static Player lastPlayer;
     private static List<String> dictionary = new ArrayList<>();
     private static SQLiteDatabase db;
-    private static StartActivity activityRef;
+    private static MainActivity activityRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        this.deleteDatabase("word_game");
+//      this.deleteDatabase("word_game"); // for development only, delete database
         activityRef = this;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        // reading resourced for dictionary from text file
+        setContentView(R.layout.activity_main);
+        createDictionary();// reading resourced for dictionary from text file
+        setWelcomeMessage();
+        // setting up welcome message
+    }
+
+    /**
+     * setting up welcome message based on lastPlayer
+     */
+    private void setWelcomeMessage() {
+        TextView welcomeMsg = (TextView) findViewById(R.id.welcome_message);
+        if (lastPlayer == null ){
+            welcomeMsg.setText("Welcome Guest!");
+        } else {
+            welcomeMsg.setText("Welcome " + lastPlayer.getNick() + "!");
+        }
+    }
+
+    /**
+     * create a list of words from the resource - text file
+     */
+    private void createDictionary() {
         InputStream fstream = getResources().openRawResource(R.raw.enable1);
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
         String line;
@@ -50,39 +68,12 @@ public class StartActivity extends Activity {
             System.out.print("problem with reading resource file");
         }
         players = new ArrayList<>();
-
-        // setting up welcome message
-        TextView welcomeMsg = (TextView) findViewById(R.id.welcome_message);
-        if (lastPlayer == null ){
-            welcomeMsg.setText("Welcome Guest!");
-        } else {
-            welcomeMsg.setText("Welcome " + lastPlayer.getNick() + "!");
-        }
     }
 
-    public void onClickAddPlayer(View view) {
-        Intent intent = new Intent(this, AddNewPlayerActivity.class);
-        startActivity(intent);
-    }
 
-    public void onClickChosePlayer(View view) {
-        Intent intent = new Intent(this, ChosePlayerActivity.class);
-        startActivity(intent);
-    }
-
-    public void onClickStartGame(View view) {
-        if (lastPlayer == null) {
-            // add message prompt user to chose player
-            TextView msg = (TextView) findViewById(R.id.select_player_msg);
-            msg.setVisibility(View.VISIBLE);
-        } else {
-            Intent intent = new Intent(this, DifficultyLevelActivity.class);
-            startActivity(intent);
-        }
-    }
 
     public static Player getPlayer(int id) {
-        Iterator<Player> iterator = StartActivity.players.iterator();
+        Iterator<Player> iterator = MainActivity.players.iterator();
         boolean playerFound = false;
         while (iterator.hasNext() && !playerFound) {
             Player player = iterator.next();
@@ -93,8 +84,8 @@ public class StartActivity extends Activity {
         return null;
     }
 
-
     public static List<Player> getPlayers() {
+        players = new ArrayList<>();
         try {
             SQLiteOpenHelper playerDatabaseHelper = new PlayerDatabaseHelper(activityRef);
             db = playerDatabaseHelper.getReadableDatabase();
@@ -112,7 +103,6 @@ public class StartActivity extends Activity {
             Toast toast  = Toast.makeText(activityRef, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-
         return players;
     }
 
@@ -124,7 +114,7 @@ public class StartActivity extends Activity {
             values.put("NICK", nick);
             db.insert("PLAYERS", null, values);
             db.close();
-            StartActivity.players.add(new Player(nick));
+            MainActivity.players.add(new Player(nick));
         } catch (SQLiteException e) {
             Toast toast  = Toast.makeText(activityRef, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
@@ -149,12 +139,33 @@ public class StartActivity extends Activity {
 
     }
 
+    public void onClickAddPlayer(View view) {
+        Intent intent = new Intent(this, AddNewPlayerActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickChoosePlayer(View view) {
+        Intent intent = new Intent(this, ChoosePlayerActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickStartGame(View view) {
+        if (lastPlayer == null) {
+            // add message prompt user to chose player
+            TextView msg = (TextView) findViewById(R.id.select_player_msg);
+            msg.setVisibility(View.VISIBLE);
+        } else {
+            Intent intent = new Intent(this, DifficultyLevelActivity.class);
+            startActivity(intent);
+        }
+    }
+
     public Player getLastPlayer() {
         return lastPlayer;
     }
 
     public static void setLastPlayer(Player lastPlayer) {
-        StartActivity.lastPlayer = lastPlayer;
+        MainActivity.lastPlayer = lastPlayer;
     }
 
     public static List<String> getDictionary() {
@@ -162,8 +173,8 @@ public class StartActivity extends Activity {
     }
 
     public static void setDictionary(List<String> dictionary) {
-        StartActivity.dictionary = dictionary;
+        MainActivity.dictionary = dictionary;
     }
 
-    public static StartActivity getActvityRef() {return activityRef;}
+    public static MainActivity getActvityRef() {return activityRef;}
 }
